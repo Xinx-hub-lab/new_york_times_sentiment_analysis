@@ -20,13 +20,13 @@ sort_order = 'relevance'
 
 
 ## loop through 10 pages to get 1000 articles
-for page_index in paginations:
+for page_idx in paginations:
 
     url = (
         f'https://api.nytimes.com/svc/search/v2/articlesearch.json? \
             begin_date={begin_date}&end_date={end_date}\
             &q={query_term}&fq={filter_query}\
-            &page={page_index}&sort={sort_order}&api-key={api_key}'
+            &page={page_idx}&sort={sort_order}&api-key={api_key}'
     )
     
     response = requests.get(url)
@@ -42,7 +42,9 @@ for page_index in paginations:
     ## save articles to json
     if len(articles) == 10:
         for art_idx, article in enumerate(articles):
-            art_filename = f'./project_articles/article_{page_index * 10 + art_idx}.json'
+            art_filename = f'./project_articles/article_{page_idx * 10 + art_idx}.json'
             with open(art_filename, 'w') as f:
                 json.dump(article, f)
+
+
 
